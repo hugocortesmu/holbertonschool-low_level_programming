@@ -3,9 +3,9 @@
 #include <stdio.h>
 
 /**
- * linear_search - linear searching algorithm
- * @array: Array to search
+ * linear searching algorithm
  * @size: Size of the array
+ * @array: Array to search
  * @value: Value to search
  * Return: int
  */
