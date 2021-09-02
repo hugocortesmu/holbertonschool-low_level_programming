@@ -1,41 +1,74 @@
 #include "search_algos.h"
-/**
- * binary_search - find a value in a sorted array of integers
- * @size: the number of elements in array
- * @array: pointer to array
- * @value: the value to search for
- * Return: the index where value is located, -1 if not found
- */
+#include <stdlib.h>
+#include <stdio.h>
 
+/**
+ * print_message - prints message
+ * @size: Size of the array
+ * @array: Array to search
+ * Return: int
+ */
+void print_message(int *array, size_t size)
+{
+	size_t j;
+
+	printf("Searching in array: ");
+
+	for (j = 0; j < size; j++)
+	{
+		if (j == size - 1)
+			printf("%d\n", array[j]);
+		else
+			printf("%d, ", array[j]);
+	}
+
+}
+
+/**
+ * get_middle - gets the middle of a size
+ * @start: number to start counting
+ * @end: number to end counting
+ * Return: The middle
+ */
+size_t get_middle(size_t start, size_t end)
+{
+		return (start + ((end - start) / 2));
+}
+
+/**
+ * binary_search - binary searching algorithm
+ * @array: Array to search
+ * @value: Value to search
+ * @size: Size of the array
+ * Return: int
+ */
 int binary_search(int *array, size_t size, int value)
 {
-	int firts = 0, last = 0, middle = 0, idx = 0;
+	size_t start, middle, end;
+	int *ptr;
 
 	if (array == NULL || size == 0)
 		return (-1);
 
-	last = size - 1;
+	ptr = array;
+	start = 0;
+	end = size - 1;
+	middle = get_middle(start, end);
 
-	while (firts <= last)
+	while (size > 0)
 	{
-		idx = 0;
-		printf("Searching in array: ");
-		for (idx = firts; idx <= last; idx++)
-			if (idx == last)
-			{
-				printf("%d\n", array[last]);
-				break;
-			}
-			else
-				printf("%d, ", array[idx]);
+		print_message(ptr, size);
 
-		middle = (firts + last) / 2;
-		if (array[middle] < value)
-			firts = middle + 1;
-		else if (array[middle] > value)
-			last = middle - 1;
-		else
+		if (value == array[middle])
 			return (middle);
+		else if (value < array[middle])
+			end = middle - 1;
+		else if (value > array[middle])
+			start = middle + 1;
+		size = end - start + 1;
+		middle = get_middle(start, end);
+		ptr = &array[start];
 	}
+
 	return (-1);
 }
